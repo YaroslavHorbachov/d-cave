@@ -1,0 +1,15 @@
+{
+    "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+    "version": 2,
+    "projects": {
+        "api": "apps/api",
+        "api-interfaces": "libs/api-interfaces",
+        "d-event": "apps/d-event",
+        "d-event-e2e": "apps/d-event-e2e",
+        "d-test-runner": "apps/d-test-runner",
+        "feature-auth": "libs/feature-auth",
+        "feature-dashboard": "libs/feature-dashboard",
+        "shared": "libs/shared",
+        "ui-shared": "libs/ui-shared"
+    }
+}

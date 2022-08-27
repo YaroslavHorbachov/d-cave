@@ -1,0 +1,57 @@
+{
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/d-test-runner/src",
+    "projectType": "application",
+    "targets": {
+        "build": {
+            "executor": "@nrwl/node:webpack",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "outputPath": "dist/apps/d-test-runner",
+                "main": "apps/d-test-runner/src/main.ts",
+                "tsConfig": "apps/d-test-runner/tsconfig.app.json",
+                "assets": ["apps/d-test-runner/src/assets"]
+            },
+            "configurations": {
+                "production": {
+                    "optimization": true,
+                    "extractLicenses": true,
+                    "inspect": false,
+                    "fileReplacements": [
+                        {
+                            "replace": "apps/d-test-runner/src/environments/environment.ts",
+                            "with": "apps/d-test-runner/src/environments/environment.prod.ts"
+                        }
+                    ]
+                }
+            }
+        },
+        "serve": {
+            "executor": "@nrwl/node:node",
+            "options": {
+                "buildTarget": "d-test-runner:build"
+            },
+            "configurations": {
+                "production": {
+                    "buildTarget": "d-test-runner:build:production"
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["apps/d-test-runner/**/*.ts"]
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["coverage/apps/d-test-runner"],
+            "options": {
+                "jestConfig": "apps/d-test-runner/jest.config.ts",
+                "passWithNoTests": true
+            }
+        }
+    },
+    "tags": []
+}
