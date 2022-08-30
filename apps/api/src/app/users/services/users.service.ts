@@ -1,70 +1,32 @@
-import { CreateUser, RegisterUserDTO, UpdateUserDTO } from '@d-cave/api-interfaces';
-import { UserRoles, UserStatuses } from '@d-cave/shared';
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { User, UserDocument } from '../schemas';
+import { UserRoles } from '@d-cave/shared';
+import { Injectable } from '@nestjs/common';
+import { MastersService } from '../../masters/services';
+import { PlayersService } from '../../players/services';
+import { UsersSchemaService } from './users-schema.service';
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectModel(User.name) private readonly userModel: Model<UserDocument>) {}
+    constructor(
+        private readonly usersSchemaService: UsersSchemaService,
+        private readonly mastersService: MastersService,
+        private readonly playersService: PlayersService
+    ) {}
 
-    public getAll() {
-        return this.userModel.find({}).exec();
-    }
+    public async remove(id: string) {
+        const user = await this.usersSchemaService.remove(id);
 
-    public createMaster(model: RegisterUserDTO) {
-        const document = { ...model, role: UserRoles.Master } as User;
+        switch (user.role) {
+            case UserRoles.Master: {
+                await this.mastersService.removeByUserId(id);
 
-        return this.create(document);
-    }
+                break;
+            }
 
-    public createPlayer(model: RegisterUserDTO) {
-        const document = { ...model, role: UserRoles.Player } as User;
+            case UserRoles.Player: {
+                await this.playersService.removeByUserId(id);
 
-        return this.create(document);
-    }
-
-    public findById(id: string) {
-        return this.userModel.findById(id);
-    }
-
-    public findByName(name: string) {
-        return this.userModel.findOne({ name });
-    }
-
-    public activateById(id: string) {
-        return this.updateById(id, { status: UserStatuses.Active });
-    }
-
-    public terminateById(id: string) {
-        return this.updateById(id, { status: UserStatuses.Terminated });
-    }
-
-    public async create(model: CreateUser) {
-        const user = await this.findByName(model.name);
-
-        if (user) {
-            throw new BadRequestException('Name already exist');
+                break;
+            }
         }
-
-        const displayName = model.name.toUpperCase();
-
-        return this.userModel.create({ ...model, displayName });
-    }
-
-    public async update(id: string, model: UpdateUserDTO) {
-        return this.updateById(id, model);
-    }
-
-    private async updateById(id: string, model: Partial<UserDocument>) {
-        // TODO: Check name uniqueness
-        const user = await this.userModel.findByIdAndUpdate(id, model);
-
-        if (!user) {
-            throw new NotFoundException('User not found');
-        }
-
-        return user;
     }
 }

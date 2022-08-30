@@ -1,46 +1,116 @@
-import { dCaveApiService, LoginDTO, RegisterUserDTO } from '@d-cave/shared';
+import { dCaveApiService, LoginDTO, RegisterUserDTO, UserStatuses } from '@d-cave/shared';
+import { faker } from '@faker-js/faker';
+import axios from 'axios';
 import { environment } from '../../environments/environment';
 
 describe('user', () => {
-    const apiService = new dCaveApiService(environment.apiUrl);
+    const aIntance = axios.create();
 
-    function registerUser(name, password) {
+    const apiService = new dCaveApiService(environment.apiUrl, aIntance);
+
+    function registerUser(name: string, password: string) {
         const registerDTO = new RegisterUserDTO({ name, password });
 
         return apiService.apiAuthRegister(registerDTO);
     }
 
-    function loginUser(name, password) {
+    function loginUser(name: string, password: string) {
         const loginDTO = new LoginDTO({ name, password });
 
         return apiService.apiAuthLogin(loginDTO);
     }
 
-    it('register', async () => {
-        // const name = faker.internet.userName();
-        // const password = faker.internet.password();
-        // const registerResponse = await registerUser(name, password);
-        // expect(registerResponse).toBeNull();
-    });
+    function activateUser(id: string) {
+        return apiService.apiAdminUserManagementActivate(id);
+    }
 
-    it('activation', async () => {
-        // const name = faker.internet.userName();
-        // const password = faker.internet.password();
-        // const registerResponse = await registerUser(name, password);
-        // expect(registerResponse).toBeNull();
-    });
+    function loadUsers() {
+        return apiService.apiAdminUserManagementGet();
+    }
 
-    it('login', async () => {
-        // const name = faker.internet.userName();
-        // const password = faker.internet.password();
-        // await registerUser(name, password);
-        // const loginResponse = await loginUser(name, password);
-        // expect(loginResponse).not.toBeNull();
-        // expect(loginResponse.accessToken).toBe(expect.any(String));
-    });
+    function loadMasters() {
+        return apiService.apiMasters();
+    }
 
-    it('admin check', () => {
-        console.log(environment.adminPassword);
-        console.log(environment.adminUsername);
+    async function findUserByName(name: string) {
+        const users = await loadUsers();
+        const testUser = users.find((user) => user.name === name);
+
+        return testUser;
+    }
+
+    async function findMasterById(id: string) {
+        const masters = await loadMasters();
+        const testMaster = masters.find((master) => master.id === id);
+
+        return testMaster;
+    }
+
+    function loadMasterCampaigns() {
+        return apiService.apiMastersCampaignsGet();
+    }
+
+    function removeUser(id) {
+        return apiService.apiAdminUserManagementDelete(id);
+    }
+
+    function createTokenInterceptor(token: string) {
+        return aIntance.interceptors.request.use((config) => {
+            config.headers['Authorization'] = `Bearer ${token}`;
+
+            return config;
+        });
+    }
+
+    function ejectTokenInterceptor(interceptorId: number) {
+        aIntance.interceptors.request.eject(interceptorId);
+    }
+
+    it('create and activate', async () => {
+        const testUsername = faker.internet.userName();
+        const testPassword = faker.internet.password();
+
+        await registerUser(testUsername, testPassword);
+
+        const { accessToken: adminAccessToken } = await loginUser(
+            environment.adminUsername,
+            environment.adminPassword
+        );
+
+        const adminTokenInterceptorId = createTokenInterceptor(adminAccessToken);
+
+        const disabledTestUser = await findUserByName(testUsername);
+
+        expect(disabledTestUser.status).toBe(UserStatuses.Disabled);
+
+        await activateUser(disabledTestUser.id);
+
+        const activatedTestUser = await findUserByName(testUsername);
+
+        expect(activatedTestUser.status).toBe(UserStatuses.Active);
+
+        const { accessToken: testAccessToken } = await loginUser(testUsername, testPassword);
+
+        ejectTokenInterceptor(adminTokenInterceptorId);
+
+        const userTokenInterceptorId = createTokenInterceptor(testAccessToken);
+
+        const campaigns = await loadMasterCampaigns();
+
+        expect(campaigns.length).toBe(0);
+
+        ejectTokenInterceptor(userTokenInterceptorId);
+
+        createTokenInterceptor(adminAccessToken);
+
+        await removeUser(activatedTestUser.id);
+
+        const removedUser = await findUserByName(testUsername);
+
+        expect(removedUser).toBeUndefined();
+
+        const removedMaster = await findMasterById(activatedTestUser.id);
+
+        expect(removedMaster).toBeUndefined();
     });
 });

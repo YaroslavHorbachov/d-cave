@@ -2,14 +2,14 @@ import { CreateCampaignDTO, UpdateCampaignDTO } from '@d-cave/api-interfaces';
 import { Injectable } from '@nestjs/common';
 import { CampaignsSchemaService } from '../../campaigns/services';
 import { CampaignsUtilsService } from '../../campaigns/services/campaigns-utils.service';
-import { MastersService } from './masters.service';
+import { MastersSchemaService } from './masters-schema.service';
 
 @Injectable()
 export class MastersCampaignsService {
     constructor(
         private readonly campaignsSchemaService: CampaignsSchemaService,
         private readonly campaignsUtilsService: CampaignsUtilsService,
-        private readonly mastersService: MastersService
+        private readonly mastersSchemaService: MastersSchemaService
     ) {}
 
     public async getAll(userId: string) {
@@ -21,7 +21,7 @@ export class MastersCampaignsService {
     public async create(userId: string, model: CreateCampaignDTO) {
         const campaign = await this.campaignsSchemaService.create(userId, model);
 
-        await this.mastersService.addCampaign(userId, campaign);
+        await this.mastersSchemaService.addCampaign(userId, campaign);
     }
 
     public async update(userId: string, campaignId: string, model: UpdateCampaignDTO) {
@@ -29,8 +29,8 @@ export class MastersCampaignsService {
     }
 
     public async delete(userId: string, campaignId: string) {
-        await this.campaignsSchemaService.delete(userId, campaignId);
+        await this.campaignsSchemaService.removeByCampaingId(userId, campaignId);
 
-        await this.mastersService.removeCampaign(userId, campaignId);
+        await this.mastersSchemaService.removeCampaign(userId, campaignId);
     }
 }

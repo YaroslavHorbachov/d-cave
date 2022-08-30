@@ -28,8 +28,6 @@ export class CampaignsSchemaService {
             model
         );
 
-        console.log(campaign);
-
         if (!campaign) {
             throw new NotFoundException('Campaing not found');
         }
@@ -41,7 +39,7 @@ export class CampaignsSchemaService {
         return this.campaignsModel.create({ ...model, master: userId });
     }
 
-    public async delete(userId: string, campaignId: string) {
+    public async removeByCampaingId(userId: string, campaignId: string) {
         const campaign = await this.campaignsModel.findOneAndDelete({
             _id: campaignId,
             master: userId,
@@ -52,6 +50,16 @@ export class CampaignsSchemaService {
         }
 
         return campaign;
+    }
+
+    public async removeByMasterId(userId: string) {
+        const campaigns = await this.campaignsModel.find({ master: userId });
+
+        if (campaigns.length > 0) {
+            await this.campaignsModel.remove({ master: userId });
+        }
+
+        return campaigns;
     }
 
     private findAllByUserId(masterId: string): Query<CampaignDocument[], CampaignDocument> {

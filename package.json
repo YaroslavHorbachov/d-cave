@@ -14,7 +14,8 @@
         "nswag": "nswag",
         "nswag:run": "nswag run nswag.json",
         "config:load": "node config.js",
-        "prettier:fix": "prettier -w {apps,libs}"
+        "prettier:fix": "prettier -w {apps,libs}",
+        "migrate": "migrate-mongo"
     },
     "private": true,
     "dependencies": {
@@ -34,9 +35,11 @@
         "@nestjs/platform-express": "^8.0.0",
         "@nestjs/swagger": "^5.2.1",
         "@nrwl/angular": "14.5.8",
+        "axios": "^0.27.2",
         "class-transformer": "^0.5.1",
         "class-validator": "^0.13.2",
         "dotenv": "^16.0.1",
+        "migrate-mongo": "^9.0.0",
         "mongoose": "^6.5.0",
         "passport": "^0.6.0",
         "passport-jwt": "^4.0.0",
@@ -74,6 +77,7 @@
         "@types/passport-local": "^1.0.34",
         "@typescript-eslint/eslint-plugin": "^5.29.0",
         "@typescript-eslint/parser": "^5.29.0",
+        "autoprefixer": "^10.4.8",
         "cypress": "^10.2.0",
         "cz-conventional-changelog": "^3.3.0",
         "eslint": "~8.15.0",
@@ -83,7 +87,9 @@
         "jest-preset-angular": "~11.1.2",
         "nswag": "^13.16.1",
         "nx": "14.5.8",
+        "postcss": "^8.4.16",
         "prettier": "^2.7.1",
+        "tailwindcss": "^3.1.8",
         "ts-jest": "27.1.4",
         "ts-node": "10.9.1",
         "typescript": "~4.7.2"

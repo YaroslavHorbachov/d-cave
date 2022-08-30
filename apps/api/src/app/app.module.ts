@@ -11,7 +11,7 @@ import { UsersModule } from './users/users.module';
 @Module({
     imports: [
         MongooseModule.forRoot(environment.mongoURI, {
-            dbName: 'devent',
+            dbName: environment.mongoDBName,
         }),
         UsersModule,
         AuthModule,

@@ -1,5 +1,5 @@
 import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Types } from 'mongoose';
+import mongoose, { Document, Types } from 'mongoose';
 import { CampaignDocument } from '../../campaigns/schemas';
 import { UserDocument } from '../../users/schemas';
 

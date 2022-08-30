@@ -1,45 +1,26 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { CampaignDocument } from '../../campaigns/schemas';
-import { Master, MasterDocument } from '../schemas';
+import { Injectable } from '@nestjs/common';
+import { CampaignsService } from '../../campaigns/services';
+import { MastersSchemaService } from './masters-schema.service';
+import { MastersUtilsService } from './masters-utils.service';
 
 @Injectable()
 export class MastersService {
     constructor(
-        @InjectModel(Master.name)
-        private readonly masterModel: Model<MasterDocument>
+        private readonly mastersSchemaService: MastersSchemaService,
+        private readonly campaignsService: CampaignsService,
+        private readonly mastersUtilsService: MastersUtilsService
     ) {}
 
-    public create(userId: string) {
-        return this.masterModel.create({ user: userId });
+    public async getAll() {
+        const masters = await this.mastersSchemaService.getAll();
+
+        return this.mastersUtilsService.mapMany(masters);
     }
 
-    public async addCampaign(userId: string, campaign: CampaignDocument) {
-        const master = await this.findByUserId(userId);
-
-        master.campaigns.push(campaign);
-
-        await master.save();
-    }
-
-    public async removeCampaign(userId: string, campaignId: string) {
-        const master = await this.findByUserId(userId);
-
-        master.campaigns.pull(campaignId);
-
-        await master.save();
-
-        console.log(master);
-    }
-
-    private async findByUserId(userId: string) {
-        const document = await this.masterModel.findOne({ user: userId });
-
-        if (!document) {
-            throw new NotFoundException('Master not found');
-        }
-
-        return document;
+    public async removeByUserId(userId: string) {
+        await Promise.all([
+            this.mastersSchemaService.removeByUserId(userId),
+            this.campaignsService.removeByMasterId(userId),
+        ]);
     }
 }

@@ -1,5 +1,5 @@
 import { UpdateUserDTO, UserDTO } from '@d-cave/api-interfaces';
-import { Body, Controller, Get, Patch } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Patch } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { AdminRole } from '../../auth/decorators/admin.decorator';
 import { ObjectIdParam } from '../../shared/decorators';
@@ -37,5 +37,12 @@ export class UserManagementController {
     @ApiOkResponse()
     public async update(@ObjectIdParam('id') id: string, @Body() body: UpdateUserDTO) {
         await this.userManagementService.update(id, body);
+    }
+
+    @AdminRole
+    @Delete(':id')
+    @ApiOkResponse()
+    public async remove(@ObjectIdParam('id') id: string) {
+        await this.userManagementService.remove(id);
     }
 }
