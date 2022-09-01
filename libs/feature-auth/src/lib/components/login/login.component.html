@@ -1,13 +1,27 @@
-<div>
-    <h2>Login</h2>
-</div>
-<div>
-    <form>
-        <input dCaveInput type="text" placeholder="Name" />
-        <input dCaveInput type="password" placeholder="Password" />
-    </form>
-</div>
+<div class="grid grid-cols-2 grid-rows-3 gap-4 w-full h-full">
+    <div
+        class="row-span-3 col-span-1 flex flex-col justify-center content-center items-center gap-8"
+    >
+        <h2 class="text-4xl font-bold">Login</h2>
+        <form class="flex flex-col items-center space-y-8">
+            <div>
+                <input type="text" placeholder="Tom" class="input input-bordered w-full max-w-x" />
+            </div>
 
-<div>
-    <button dCaveButton routerLink="/auth/register">Register</button>
+            <div>
+                <input
+                    type="text"
+                    placeholder="Password"
+                    class="input input-bordered w-full max-w-x"
+                />
+            </div>
+
+            <button class="btn">Login</button>
+        </form>
+    </div>
+
+    <div class="row-start-2 col-start-2 flex flex-col items-center justify-center space-y-8">
+        <button class="btn" routerLink="/auth/register">Register</button>
+        <button class="btn" routerLink="/auth/register">Login with code</button>
+    </div>
 </div>
