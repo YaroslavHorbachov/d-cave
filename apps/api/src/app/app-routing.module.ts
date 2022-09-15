@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { RouterModule, Routes } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
 import { CampaignsModule } from './campaigns/campaigns.module';
+import { DBModule } from './db/db.module';
 import { EventsModule } from './events/events.module';
 import { MastersModule } from './masters/masters.module';
 import { PlayersModule } from './players/players.module';
@@ -18,6 +19,10 @@ const routes: Routes = [
     {
         path: 'admin',
         children: [{ path: 'user-management', module: UserManagementModule }],
+    },
+    {
+        path: 'test',
+        children: [{ path: 'db', module: DBModule }],
     },
 ];
 

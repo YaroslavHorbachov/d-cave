@@ -1,7 +1,7 @@
 import { UpdateUserDTO, UserDTO } from '@d-cave/api-interfaces';
 import { Injectable } from '@nestjs/common';
-import { UserDocument } from '../../users/schemas';
-import { UsersSchemaService } from '../../users/services';
+import { UserDocument } from '../../db/schemas';
+import { UsersSchemaService } from '../../db/services';
 import { UsersService } from '../../users/services/users.service';
 
 @Injectable()

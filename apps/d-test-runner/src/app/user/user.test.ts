@@ -34,6 +34,7 @@ describe('user', () => {
 
     async function findUserByName(name: string) {
         const users = await loadUsers();
+
         const testUser = users.find((user) => user.name === name);
 
         return testUser;
@@ -50,8 +51,8 @@ describe('user', () => {
         return apiService.apiMastersCampaignsGet();
     }
 
-    function removeUser(id) {
-        return apiService.apiAdminUserManagementDelete(id);
+    function clearAll() {
+        return apiService.apiTestDbClearAll();
     }
 
     function createTokenInterceptor(token: string) {
@@ -65,6 +66,16 @@ describe('user', () => {
     function ejectTokenInterceptor(interceptorId: number) {
         aIntance.interceptors.request.eject(interceptorId);
     }
+
+    beforeAll(() => {
+        // Create admin
+    });
+
+    afterAll(async() => {
+        // Clean up all
+        // await clearAll();
+
+    });
 
     it('create and activate', async () => {
         const testUsername = faker.internet.userName();
@@ -103,7 +114,7 @@ describe('user', () => {
 
         createTokenInterceptor(adminAccessToken);
 
-        await removeUser(activatedTestUser.id);
+        await clearAll()
 
         const removedUser = await findUserByName(testUsername);
 

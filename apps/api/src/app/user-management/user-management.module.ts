@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { MastersModule } from '../masters/masters.module';
+import { DBModule } from '../db/db.module';
 import { UsersModule } from '../users/users.module';
 import { UserManagementController } from './controllers';
 import { UserManagementService } from './services';
 
 @Module({
-    imports: [UsersModule, MastersModule],
+    imports: [UsersModule, DBModule],
     controllers: [UserManagementController],
     providers: [UserManagementService],
 })

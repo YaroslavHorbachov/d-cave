@@ -2,10 +2,11 @@ import { CreateCampaignDTO, UpdateCampaignDTO } from '@d-cave/api-interfaces';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Query } from 'mongoose';
-import { Campaign, CampaignDocument } from '../schemas';
+import { DbBaseService } from '../interfaces/db-base-service.interface';
+import { Campaign, CampaignDocument } from '../schemas/campaign.schema';
 
 @Injectable()
-export class CampaignsSchemaService {
+export class CampaignsSchemaService implements DbBaseService<CampaignDocument> {
     constructor(
         @InjectModel(Campaign.name)
         private readonly campaignsModel: Model<CampaignDocument>
@@ -13,6 +14,10 @@ export class CampaignsSchemaService {
 
     public getAll(): Promise<CampaignDocument[]> {
         return this.campaignsModel.find({}).populate('players').exec();
+    }
+
+    public async removeAll(): Promise<void> {
+        await this.campaignsModel.remove({}).exec();
     }
 
     public getAllByUserId(userId: string): Promise<CampaignDocument[]> {

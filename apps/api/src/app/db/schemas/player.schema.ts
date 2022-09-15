@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import { CampaignDocument } from '../../campaigns/schemas';
-import { UserDocument } from '../../users/schemas';
+import { CampaignDocument } from './campaign.schema';
+import { UserDocument } from './user.schema';
 
 @Schema()
 export class Player {

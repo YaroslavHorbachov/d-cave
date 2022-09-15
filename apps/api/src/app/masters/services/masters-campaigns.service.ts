@@ -1,8 +1,7 @@
 import { CreateCampaignDTO, UpdateCampaignDTO } from '@d-cave/api-interfaces';
 import { Injectable } from '@nestjs/common';
-import { CampaignsSchemaService } from '../../campaigns/services';
-import { CampaignsUtilsService } from '../../campaigns/services/campaigns-utils.service';
-import { MastersSchemaService } from './masters-schema.service';
+import { CampaignsUtilsService } from '../../campaigns/services';
+import { CampaignsSchemaService, MastersSchemaService } from '../../db/services';
 
 @Injectable()
 export class MastersCampaignsService {

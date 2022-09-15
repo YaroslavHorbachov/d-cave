@@ -1,8 +1,7 @@
 import { RegisterUserDTO } from '@d-cave/api-interfaces';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { MastersSchemaService } from '../../masters/services';
-import { UsersSchemaService } from '../../users/services';
+import { MastersSchemaService, UsersSchemaService } from '../../db/services';
 import { LocalPayload, TokenPayload } from '../interfaces';
 
 @Injectable()

@@ -3,14 +3,19 @@ import { UserRoles, UserStatuses } from '@d-cave/shared';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { DbBaseService } from '../interfaces/db-base-service.interface';
 import { User, UserDocument } from '../schemas';
 
 @Injectable()
-export class UsersSchemaService {
+export class UsersSchemaService implements DbBaseService<UserDocument> {
     constructor(@InjectModel(User.name) private readonly userModel: Model<UserDocument>) {}
 
-    public getAll() {
+    public getAll(): Promise<UserDocument[]> {
         return this.userModel.find({}).exec();
+    }
+
+    public async removeAll(): Promise<void> {
+        await this.userModel.remove({}).exec();
     }
 
     public createMaster(model: RegisterUserDTO) {

@@ -1,7 +1,7 @@
 import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document, Types } from 'mongoose';
-import { CampaignDocument } from '../../campaigns/schemas';
-import { UserDocument } from '../../users/schemas';
+import { CampaignDocument } from './campaign.schema';
+import { UserDocument } from './user.schema';
 
 @Schema()
 export class Master {

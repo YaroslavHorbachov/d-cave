@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { environment } from '../../environments/environment';
-import { MastersModule } from '../masters/masters.module';
+import { DBModule } from '../db/db.module';
 import { UsersModule } from '../users/users.module';
 import { AuthController } from './controllers';
 import { AuthService } from './services';
@@ -17,7 +17,7 @@ import { JwtStrategy, LocalStrategy } from './strategies';
             secret: environment.jwtSecret,
             signOptions: { expiresIn: environment.jwtExpiresIn },
         }),
-        MastersModule,
+        DBModule,
     ],
     controllers: [AuthController],
 })

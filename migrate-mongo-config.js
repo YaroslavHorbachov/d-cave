@@ -2,6 +2,8 @@
 
 const { env } = require('process');
 
+env.ENV = 'test';
+
 require('./config');
 
 const config = {

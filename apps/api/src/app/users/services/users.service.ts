@@ -1,8 +1,8 @@
 import { UserRoles } from '@d-cave/shared';
 import { Injectable } from '@nestjs/common';
+import { UsersSchemaService } from '../../db/services';
 import { MastersService } from '../../masters/services';
 import { PlayersService } from '../../players/services';
-import { UsersSchemaService } from './users-schema.service';
 
 @Injectable()
 export class UsersService {

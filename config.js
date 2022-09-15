@@ -1,3 +1,7 @@
-// Uncomment for local development
-require('dotenv').config({ path: '.env.local' });
-// require('dotenv').config();
+const pathMap = {
+    local: '.env.local',
+    test: '.env.test',
+    prod: '.env',
+};
+
+require('dotenv').config({ path: pathMap[process.env.ENV] });

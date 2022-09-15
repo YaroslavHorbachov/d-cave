@@ -1,6 +1,6 @@
 import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document, Types } from 'mongoose';
-import { UserDocument } from '../../users/schemas';
+import { UserDocument } from './user.schema';
 
 @Schema()
 export class Campaign {

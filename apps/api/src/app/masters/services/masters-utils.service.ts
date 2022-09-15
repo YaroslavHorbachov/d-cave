@@ -1,6 +1,6 @@
 import { MasterDTO } from '@d-cave/api-interfaces';
 import { Injectable } from '@nestjs/common';
-import { MasterDocument } from '../schemas';
+import { MasterDocument } from '../../db/schemas';
 
 @Injectable()
 export class MastersUtilsService {

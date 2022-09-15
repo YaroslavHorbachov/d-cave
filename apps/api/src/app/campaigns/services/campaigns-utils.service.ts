@@ -1,6 +1,6 @@
 import { CampaignDTO, CampaingPlayerDTO } from '@d-cave/api-interfaces';
 import { Injectable } from '@nestjs/common';
-import { CampaignDocument } from '../schemas';
+import { CampaignDocument } from '../../db/schemas';
 
 @Injectable()
 export class CampaignsUtilsService {

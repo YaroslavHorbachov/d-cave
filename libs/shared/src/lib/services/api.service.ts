@@ -24,6 +24,57 @@ export class dCaveApiService {
 
     }
 
+    apiTestDbClearAll(  cancelToken?: CancelToken | undefined): Promise<void> {
+        let url_ = this.baseUrl + "/api/test/db/clear-all";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: AxiosRequestConfig = {
+            method: "POST",
+            url: url_,
+            headers: {
+            },
+            cancelToken
+        };
+
+        return this.instance.request(options_).catch((_error: any) => {
+            if (isAxiosError(_error) && _error.response) {
+                return _error.response;
+            } else {
+                throw _error;
+            }
+        }).then((_response: AxiosResponse) => {
+            return this.processApiTestDbClearAll(_response);
+        });
+    }
+
+    protected processApiTestDbClearAll(response: AxiosResponse): Promise<void> {
+        const status = response.status;
+        let _headers: any = {};
+        if (response.headers && typeof response.headers === "object") {
+            for (let k in response.headers) {
+                if (response.headers.hasOwnProperty(k)) {
+                    _headers[k] = response.headers[k];
+                }
+            }
+        }
+        if (status === 200) {
+            const _responseText = response.data;
+            return Promise.resolve<void>(null as any);
+
+        } else if (status === 401) {
+            const _responseText = response.data;
+            let result401: any = null;
+            let resultData401  = _responseText;
+            result401 = UnauthorizedDTO.fromJS(resultData401);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result401);
+
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.data;
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Promise.resolve<void>(null as any);
+    }
+
     apiMastersCampaignsGet(  cancelToken?: CancelToken | undefined): Promise<CampaignDTO[]> {
         let url_ = this.baseUrl + "/api/masters/campaigns";
         url_ = url_.replace(/[?&]$/, "");
@@ -846,6 +897,46 @@ export class dCaveApiService {
     }
 }
 
+export class UnauthorizedDTO implements IUnauthorizedDTO {
+    status!: number;
+    message!: string;
+
+    constructor(data?: IUnauthorizedDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.status = _data["status"] !== undefined ? _data["status"] : <any>null;
+            this.message = _data["message"] !== undefined ? _data["message"] : <any>null;
+        }
+    }
+
+    static fromJS(data: any): UnauthorizedDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new UnauthorizedDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["status"] = this.status !== undefined ? this.status : <any>null;
+        data["message"] = this.message !== undefined ? this.message : <any>null;
+        return data;
+    }
+}
+
+export interface IUnauthorizedDTO {
+    status: number;
+    message: string;
+}
+
 export class CampaingPlayerDTO implements ICampaingPlayerDTO {
     id!: string;
     name!: string;
@@ -946,46 +1037,6 @@ export interface ICampaignDTO {
     name: string;
     players: CampaingPlayerDTO[];
     description: string;
-}
-
-export class UnauthorizedDTO implements IUnauthorizedDTO {
-    status!: number;
-    message!: string;
-
-    constructor(data?: IUnauthorizedDTO) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.status = _data["status"] !== undefined ? _data["status"] : <any>null;
-            this.message = _data["message"] !== undefined ? _data["message"] : <any>null;
-        }
-    }
-
-    static fromJS(data: any): UnauthorizedDTO {
-        data = typeof data === 'object' ? data : {};
-        let result = new UnauthorizedDTO();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["status"] = this.status !== undefined ? this.status : <any>null;
-        data["message"] = this.message !== undefined ? this.message : <any>null;
-        return data;
-    }
-}
-
-export interface IUnauthorizedDTO {
-    status: number;
-    message: string;
 }
 
 export class CreateCampaignDTO implements ICreateCampaignDTO {

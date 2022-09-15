@@ -1,6 +1,6 @@
 import { Controller, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { PlayersSchemaService } from '../services/players-schema.service';
+import { PlayersSchemaService } from '../../db/services';
 
 @ApiBearerAuth()
 @ApiTags('players')

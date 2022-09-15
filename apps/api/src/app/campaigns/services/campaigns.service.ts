@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { CampaignsSchemaService } from '../../db/services';
 import { PlayersService } from '../../players/services/players.service';
-import { CampaignsSchemaService } from './campaigns-schema.service';
 import { CampaignsUtilsService } from './campaigns-utils.service';
 
 @Injectable()

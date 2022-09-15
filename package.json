@@ -6,16 +6,18 @@
         "ng": "nx",
         "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
         "start": "nx serve",
-        "start:api": "nx serve api",
-        "test:api": "npm run config:load && nx test d-test-runner",
+        "start:api": "npm run config:load:local && nx serve api",
+        "test:api": "npm run migrate:up && npm run config:load:test && nx test d-test-runner",
         "build": "nx build",
         "test": "nx test",
         "commit": "npx cz",
         "nswag": "nswag",
         "nswag:run": "nswag run nswag.json",
-        "config:load": "node config.js",
+        "config:load:test": "ENV=test node config.js",
+        "config:load:local": "ENV=local node config.js",
         "prettier:fix": "prettier -w {apps,libs}",
-        "migrate": "migrate-mongo"
+        "migrate": "migrate-mongo",
+        "migrate:up": "npm run migrate -- up"
     },
     "private": true,
     "dependencies": {
