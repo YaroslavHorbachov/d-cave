@@ -4,6 +4,7 @@
     "projects": {
         "api": "apps/api",
         "api-interfaces": "libs/api-interfaces",
+        "cp-generator": "libs/cp-generator",
         "d-event": "apps/d-event",
         "d-event-e2e": "apps/d-event-e2e",
         "d-test-runner": "apps/d-test-runner",

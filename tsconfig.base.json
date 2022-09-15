@@ -19,7 +19,8 @@
             "@d-cave/feature-auth": ["libs/feature-auth/src/index.ts"],
             "@d-cave/feature-dashboard": ["libs/feature-dashboard/src/index.ts"],
             "@d-cave/shared": ["libs/shared/src/index.ts"],
-            "@d-cave/ui-shared": ["libs/ui-shared/src/index.ts"]
+            "@d-cave/ui-shared": ["libs/ui-shared/src/index.ts"],
+            "cp-generator": ["libs/cp-generator/src/index.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]
