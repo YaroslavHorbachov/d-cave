@@ -1,5 +1,12 @@
 {
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
-  }
+  },
+  "cSpell.words": [
+    "Medtech",
+    "Netrunner",
+    "Rockerboy",
+    "Screamsheet",
+    "Vendit"
+  ]
 }
