@@ -1,0 +1,34 @@
+{
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "library",
+    "sourceRoot": "libs/error-banner-element/src",
+    "prefix": "d-cave",
+    "targets": {
+        "build": {
+            "executor": "@nrwl/angular:package",
+            "outputs": ["dist/libs/error-banner-element"],
+            "options": {
+                "project": "libs/error-banner-element/ng-package.json"
+            },
+            "configurations": {
+                "production": {
+                    "tsConfig": "libs/error-banner-element/tsconfig.lib.prod.json"
+                },
+                "development": {
+                    "tsConfig": "libs/error-banner-element/tsconfig.lib.json"
+                }
+            },
+            "defaultConfiguration": "production"
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "options": {
+                "lintFilePatterns": [
+                    "libs/error-banner-element/**/*.ts",
+                    "libs/error-banner-element/**/*.html"
+                ]
+            }
+        }
+    },
+    "tags": []
+}
