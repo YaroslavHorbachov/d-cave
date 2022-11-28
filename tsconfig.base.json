@@ -20,7 +20,10 @@
             "@d-cave/feature-dashboard": ["libs/feature-dashboard/src/index.ts"],
             "@d-cave/shared": ["libs/shared/src/index.ts"],
             "@d-cave/ui-shared": ["libs/ui-shared/src/index.ts"],
-            "cp-generator": ["libs/cp-generator/src/index.ts"]
+            "battleplanner": ["libs/battleplanner/src/index.ts"],
+            "battleplanner-dnd": ["libs/battleplanner-dnd/src/index.ts"],
+            "cp-generator": ["libs/cp-generator/src/index.ts"],
+            "dice-pouch": ["libs/dice-pouch/src/index.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]

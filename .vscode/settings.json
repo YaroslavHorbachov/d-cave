@@ -1,12 +1,16 @@
 {
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": true
-  },
-  "cSpell.words": [
-    "Medtech",
-    "Netrunner",
-    "Rockerboy",
-    "Screamsheet",
-    "Vendit"
-  ]
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true,
+        "source.fixAll": true
+    },
+    "editor.formatOnSave": true,
+    "cSpell.words": [
+        "battleplanner",
+        "Medtech",
+        "Netrunner",
+        "Rockerboy",
+        "Screamsheet",
+        "Spellcast",
+        "Vendit"
+    ]
 }

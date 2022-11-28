@@ -1,0 +1,12 @@
+{
+    "name": "battleplanner",
+    "version": "0.0.3",
+    "license": "MIT",
+    "keywords": [
+        "dnd",
+        "battle"
+    ],
+    "peerDependencies": {
+        "dice-pouch": "*"
+    }
+}

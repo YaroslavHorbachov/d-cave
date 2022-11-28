@@ -4,10 +4,13 @@
     "projects": {
         "api": "apps/api",
         "api-interfaces": "libs/api-interfaces",
+        "battleplanner": "libs/battleplanner",
+        "battleplanner-dnd": "libs/battleplanner-dnd",
         "cp-generator": "libs/cp-generator",
         "d-event": "apps/d-event",
         "d-event-e2e": "apps/d-event-e2e",
         "d-test-runner": "apps/d-test-runner",
+        "dice-pouch": "libs/dice-pouch",
         "feature-auth": "libs/feature-auth",
         "feature-dashboard": "libs/feature-dashboard",
         "shared": "libs/shared",
