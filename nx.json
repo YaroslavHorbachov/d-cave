@@ -1,54 +1,61 @@
 {
-  "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "d-cave",
-  "affected": {
-    "defaultBase": "main"
-  },
-  "cli": {
-    "packageManager": "npm"
-  },
-  "implicitDependencies": {
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
+    "$schema": "./node_modules/nx/schemas/nx-schema.json",
+    "npmScope": "d-cave",
+    "affected": {
+        "defaultBase": "main"
     },
-    ".eslintrc.json": "*"
-  },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "@nrwl/nx-cloud",
-      "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ],
-        "accessToken": "NzNmNTY3ZTgtYmVlNi00NDdhLWE0MWEtODVjOWE2MTQxYzlkfHJlYWQtd3JpdGU="
-      }
-    }
-  },
-  "targetDefaults": {
-    "build": {
-      "dependsOn": [
-        "^build"
-      ]
-    }
-  },
-  "generators": {
-    "@nrwl/angular:application": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
+    "cli": {
+        "packageManager": "npm"
     },
-    "@nrwl/angular:library": {
-      "linter": "eslint",
-      "unitTestRunner": "jest"
+    "tasksRunnerOptions": {
+        "default": {
+            "runner": "@nrwl/nx-cloud",
+            "options": {
+                "cacheableOperations": ["build", "lint", "test", "e2e"],
+                "accessToken": "NzNmNTY3ZTgtYmVlNi00NDdhLWE0MWEtODVjOWE2MTQxYzlkfHJlYWQtd3JpdGU="
+            }
+        }
     },
-    "@nrwl/angular:component": {
-      "style": "scss"
+    "targetDefaults": {
+        "build": {
+            "dependsOn": ["^build"],
+            "inputs": ["production", "^production"]
+        },
+        "e2e": {
+            "inputs": ["default", "^production"]
+        },
+        "test": {
+            "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
+        },
+        "lint": {
+            "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+        }
+    },
+    "generators": {
+        "@nrwl/angular:application": {
+            "style": "scss",
+            "linter": "eslint",
+            "unitTestRunner": "jest",
+            "e2eTestRunner": "cypress"
+        },
+        "@nrwl/angular:library": {
+            "linter": "eslint",
+            "unitTestRunner": "jest"
+        },
+        "@nrwl/angular:component": {
+            "style": "scss"
+        }
+    },
+    "defaultProject": "d-event",
+    "namedInputs": {
+        "default": ["{projectRoot}/**/*", "sharedGlobals"],
+        "sharedGlobals": [],
+        "production": [
+            "default",
+            "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+            "!{projectRoot}/tsconfig.spec.json",
+            "!{projectRoot}/jest.config.[jt]s",
+            "!{projectRoot}/.eslintrc.json"
+        ]
     }
-  },
-  "defaultProject": "d-event"
 }

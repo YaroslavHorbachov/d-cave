@@ -11,8 +11,6 @@
         "d-event-e2e": "apps/d-event-e2e",
         "d-test-runner": "apps/d-test-runner",
         "dice-pouch": "libs/dice-pouch",
-        "error-banner": "apps/error-banner",
-        "error-banner-element": "libs/error-banner-element",
         "feature-auth": "libs/feature-auth",
         "feature-dashboard": "libs/feature-dashboard",
         "shared": "libs/shared",

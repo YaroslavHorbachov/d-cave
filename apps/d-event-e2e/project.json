@@ -1,4 +1,5 @@
 {
+    "name": "d-event-e2e",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "apps/d-event-e2e/src",
     "projectType": "application",

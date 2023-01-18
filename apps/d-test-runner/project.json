@@ -1,16 +1,19 @@
 {
+    "name": "d-test-runner",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "apps/d-test-runner/src",
     "projectType": "application",
     "targets": {
         "build": {
-            "executor": "@nrwl/node:webpack",
+            "executor": "@nrwl/webpack:webpack",
             "outputs": ["{options.outputPath}"],
             "options": {
                 "outputPath": "dist/apps/d-test-runner",
                 "main": "apps/d-test-runner/src/main.ts",
                 "tsConfig": "apps/d-test-runner/tsconfig.app.json",
-                "assets": ["apps/d-test-runner/src/assets"]
+                "assets": ["apps/d-test-runner/src/assets"],
+                "target": "node",
+                "compiler": "tsc"
             },
             "configurations": {
                 "production": {
@@ -46,7 +49,7 @@
         },
         "test": {
             "executor": "@nrwl/jest:jest",
-            "outputs": ["coverage/apps/d-test-runner"],
+            "outputs": ["{workspaceRoot}/coverage/apps/d-test-runner"],
             "options": {
                 "jestConfig": "apps/d-test-runner/jest.config.ts",
                 "passWithNoTests": true

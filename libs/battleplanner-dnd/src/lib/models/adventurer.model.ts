@@ -84,7 +84,7 @@ export class AdventurerModel
             throw new Error('Need to setup strikes.');
         }
 
-        const mainRoll = DicePouch.roll(1, 20);
+        const mainRoll = DicePouch.sumRoll(1, 20);
 
         const targetStrike = this.applyStrike();
 
@@ -122,7 +122,7 @@ export class AdventurerModel
             initiativeMod,
             BuffTypes.InitiativeMod
         );
-        const initiative = DicePouch.roll({ count: 1, type: 20 });
+        const initiative = DicePouch.sumRoll({ count: 1, type: 20 });
         const buffedInitiative = applyBuffsTransformation(this, initiative, BuffTypes.Initiative);
 
         return buffedInitiative + buffedInitiativeMod;

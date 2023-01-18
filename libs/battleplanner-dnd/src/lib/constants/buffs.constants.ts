@@ -8,7 +8,7 @@ export const feralInstinct: Buff<null, number> = {
     type: BuffTypes.Initiative,
     effect: (currentRoll) => {
         // TODO: Create utils for roll with advantage or disadvantage
-        const reroll = DicePouch.roll({ count: 1, type: 20 });
+        const reroll = DicePouch.sumRoll({ count: 1, type: 20 });
 
         return Math.max(currentRoll, reroll);
     },
@@ -19,7 +19,7 @@ export const fightingStyleDefense: Buff<null, number> = {
     type: BuffTypes.AC,
     effect: (currentRoll) => {
         // TODO: Create utils for roll with advantage or disadvantage
-        const reroll = DicePouch.roll({ count: 1, type: 20 });
+        const reroll = DicePouch.sumRoll({ count: 1, type: 20 });
 
         return Math.max(currentRoll, reroll);
     },

@@ -1,11 +1,12 @@
 {
+    "name": "feature-auth",
     "projectType": "library",
     "sourceRoot": "libs/feature-auth/src",
     "prefix": "d-cave",
     "targets": {
         "test": {
             "executor": "@nrwl/jest:jest",
-            "outputs": ["coverage/libs/feature-auth"],
+            "outputs": ["{workspaceRoot}/coverage/libs/feature-auth"],
             "options": {
                 "jestConfig": "libs/feature-auth/jest.config.ts",
                 "passWithNoTests": true

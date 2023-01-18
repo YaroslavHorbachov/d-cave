@@ -16,7 +16,6 @@
         "baseUrl": ".",
         "paths": {
             "@d-cave/api-interfaces": ["libs/api-interfaces/src/index.ts"],
-            "@d-cave/error-banner-element": ["libs/error-banner-element/src/index.ts"],
             "@d-cave/feature-auth": ["libs/feature-auth/src/index.ts"],
             "@d-cave/feature-dashboard": ["libs/feature-dashboard/src/index.ts"],
             "@d-cave/shared": ["libs/shared/src/index.ts"],

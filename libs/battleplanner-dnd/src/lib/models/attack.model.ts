@@ -11,7 +11,7 @@ export class AttackModel implements Attack<DamageModel> {
     ) {}
 
     roll(): DamageModel {
-        const roll = DicePouch.roll(this.diceOptions.count, this.diceOptions.type);
+        const roll = DicePouch.sumRoll(this.diceOptions.count, this.diceOptions.type);
 
         const amount = roll + this.modifier;
 

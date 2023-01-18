@@ -1,4 +1,5 @@
 {
+    "name": "d-event",
     "projectType": "application",
     "sourceRoot": "apps/d-event/src",
     "prefix": "d-cave",
@@ -79,7 +80,7 @@
         },
         "test": {
             "executor": "@nrwl/jest:jest",
-            "outputs": ["coverage/apps/d-event"],
+            "outputs": ["{workspaceRoot}/coverage/apps/d-event"],
             "options": {
                 "jestConfig": "apps/d-event/jest.config.ts",
                 "passWithNoTests": true
