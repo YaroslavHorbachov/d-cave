@@ -25,6 +25,7 @@ describe('dicePouch', () => {
                 const roll = DicePouch.sequenceRoll(1, 6);
 
                 expect(roll).toBeInstanceOf(Array);
+
                 roll.forEach((result) => expect(result).toBeLessThanOrEqual(6));
             });
         });
@@ -34,6 +35,7 @@ describe('dicePouch', () => {
                 const roll = DicePouch.sequenceRoll({ count: 10, type: 20 });
 
                 expect(roll).toBeInstanceOf(Array);
+
                 roll.forEach((result) => expect(result).toBeLessThanOrEqual(20));
             });
         });
