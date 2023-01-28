@@ -1,5 +1,6 @@
 {
     "name": "dice-pouch",
-    "version": "0.0.2",
-    "type": "commonjs"
+    "version": "0.1.2",
+    "type": "module",
+    "peerDependencies": {}
 }
