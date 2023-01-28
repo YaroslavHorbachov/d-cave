@@ -1,6 +1,7 @@
 {
     "name": "dice-pouch",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "peerDependencies": {},
+    "type": "module",
     "license": "MIT"
 }
